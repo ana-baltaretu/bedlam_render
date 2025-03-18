@@ -5,4 +5,5 @@ __pycache__/
 # BEDLAM
 # Ground trajectory masks
 tools/sequence_generation/images/
-
+*.idea
+tools/clothing_data_scripts/
