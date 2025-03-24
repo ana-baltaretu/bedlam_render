@@ -34,8 +34,11 @@ SUBJECT_GENDER_PATH = Path("../../config/gender.csv")               # Gender inf
 TEXTURES_BODY_PATH = Path("../../config/textures_body.txt")         # List of available body textures
 TEXTURES_CLOTHING_PATH = Path("../../config/textures_clothing.csv") # List of available clothing textures per subject
 
-WHITELIST_PATH = Path("../../config/whitelist_animations.json")     # Per-subject whitelisted animations
+# WHITELIST_PATH = Path("../../config/whitelist_animations.json")     # Per-subject whitelisted animations
 #WHITELIST_PATH = Path("../../config/whitelist_animations_highbmihand_20221019.json")
+
+animation_name = "kick"
+WHITELIST_PATH = Path(f"../../config/{animation_name}/whitelist_{animation_name}_animations.json")
 
 WHITELIST_HAIR_PATH = Path("../../config/whitelist_hair.json")
 
@@ -448,7 +451,8 @@ if __name__ == "__main__":
         sequence_frames = subject_location_data[0].used_frames
         total_frames += sequence_frames
 
-        comment = f"sequence_name={sequence_name};frames={sequence_frames}"
+        # comment = f"sequence_name={sequence_name};frames={sequence_frames}"
+        comment = f"sequence_name={animation_name}_{sequence_name};frames={sequence_frames}"
 
         if hdris is not None:
             # Add HDRI name to sequence information

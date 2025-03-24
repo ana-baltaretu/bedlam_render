@@ -43,6 +43,8 @@ mkdir -p /mnt/c/bedlam/images/test
 
 # My camera placement
 ./be_generate_sequences_crowd.py my_1_1 | tee /mnt/c/bedlam/images/test/be_seq.csv
+
+./be_generate_sequences_crowd.py my_test | tee /mnt/c/bedlam/images/test/be_seq.csv
 ```
 
 ## Modify existing scene definition

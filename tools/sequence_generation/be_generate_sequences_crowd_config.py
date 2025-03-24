@@ -127,3 +127,21 @@ configs["be_suburb_d_3-10_500"] = Config(bodies_min=3, bodies_max=10, x_offset=-
 configs["be_suburb_d_3-8_1000"] = Config(bodies_min=3, bodies_max=8, x_offset=-1200.0, y_offset=-250.0, z_offset=0.0, x_min=-300, x_max=300, y_min=-300, y_max=300, yaw_min=0, yaw_max=360, num_sequences=1000, unique_subjects=True, unique_sequences=True, camera_hfov_deg=52.0, override_cameraroot_location=True)
 configs["be_suburb_d_3-8_50_hair"] = Config(use_hair=True, bodies_min=3, bodies_max=8, x_offset=-1200.0, y_offset=-250.0, z_offset=0.0, x_min=-300, x_max=300, y_min=-300, y_max=300, yaw_min=0, yaw_max=360, num_sequences=50, unique_subjects=True, unique_sequences=True, camera_hfov_deg=65.470451, override_cameraroot_location=True)
 configs["be_suburb_d_10_100_hair"] = Config(use_hair=True, bodies_min=10, bodies_max=10, x_offset=-1200.0, y_offset=-250.0, z_offset=0.0, x_min=-300, x_max=300, y_min=-300, y_max=300, yaw_min=0, yaw_max=360, num_sequences=100, unique_subjects=True, unique_sequences=True, camera_hfov_deg=65.470451, override_cameraroot_location=True)
+
+
+configs["my_test"] = Config(bodies_min=1, bodies_max=1,
+                            x_offset=-100.0, y_offset=0.0, z_offset=0.0,
+                            x_min=400, x_max=400, ### TODO: CHANGE THESE
+                            y_min=0, y_max=0, ### TODO: CHANGE THESE
+                            yaw_min=0, yaw_max=0, camera_height=130,
+                            num_sequences=5, unique_subjects=True, unique_sequences=True,
+                            camera_hfov_deg=65.470451, override_cameraroot_location=True)
+
+
+configs["cartwheel"] = Config(bodies_min=1, bodies_max=1,
+                            x_offset=-600.0, y_offset=0.0, z_offset=0.0,
+                            x_min=500, x_max=1100, ### TODO: CHANGE THESE
+                            y_min=0, y_max=0, ### TODO: CHANGE THESE
+                            yaw_min=0, yaw_max=0, camera_height=130,
+                            num_sequences=3, unique_subjects=True, unique_sequences=True,
+                            camera_hfov_deg=65.470451, override_cameraroot_location=True)
