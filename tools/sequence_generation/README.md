@@ -10,6 +10,7 @@ The generated body scene data definition files will later be used by the Unreal 
 + [be_generate_sequences_crowd.py](be_generate_sequences_crowd.py)
   + Run from WSL2 Python 3.10 venv
     + Dependencies: opencv-python-headless, numpy
+    + `cd /mnt/c/bedlam_render/tools/sequence_generation` and `source venv/bin/activate`
   + Adjust animation folder data path at top of script
 + Generate external body scene description (`be_seq.csv`) with desired number of animated sequences. Each sequence is randomized based on predefined randomization settings for
   +  Bodies per scene
@@ -39,6 +40,9 @@ mkdir -p /mnt/c/bedlam/images/test
 
 # 5 people, 10 sequences, HDR image information for IBL rendering
 ./be_generate_sequences_crowd.py be_5_10 ../../config/whitelist_hdri.txt | tee /mnt/c/bedlam/images/test/be_seq_hdri.csv
+
+# My camera placement
+./be_generate_sequences_crowd.py my_1_1 | tee /mnt/c/bedlam/images/test/be_seq.csv
 ```
 
 ## Modify existing scene definition

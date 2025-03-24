@@ -10,9 +10,11 @@ import sys
 import time
 import unreal
 
-DATA_ROOT = r"E:\bedlam\material_4rendering\clothing_abc"
+# TODO: Update these file paths to your own vvvv
+DATA_ROOT = r"C:\bedlam\material_4rendering\textures"
 DATA_ROOT_UNREAL = "/Engine/PS/Bedlam/Clothing/Materials"
-MASTER_MATERIAL_PATH = "/Engine/PS/Bedlam/Core/Materials/M_Clothing"
+MASTER_MATERIAL_PATH = f"/Engine/PS/Bedlam/Core/Materials/M_Clothing"
+# TODO: Update these file paths to your own ^^^^
 def import_textures(texture_paths):
 
     master_material = unreal.EditorAssetLibrary.load_asset(f"Material'{MASTER_MATERIAL_PATH}'")
@@ -20,6 +22,7 @@ def import_textures(texture_paths):
         unreal.log_error(f"Cannot load master material: {MASTER_MATERIAL_PATH}")
         return False
 
+    unreal.log(f"Texture paths {texture_paths}")
     for texture_path in texture_paths:
         unreal.log(f"Processing {texture_path}")
 

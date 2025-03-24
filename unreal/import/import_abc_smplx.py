@@ -9,9 +9,9 @@ import os
 from pathlib import Path
 import sys
 import time
-import unreal
+import unreal # I think we need to run this through Unreal and not just from Windows Powershell
 
-data_root = r"C:\bedlam\abc\smplx"
+data_root = r"C:\bedlam\abc"
 
 #whitelist_subjects_path = r"C:\bedlam\render\config\whitelist_subjects.txt"
 whitelist_subjects_path = None
@@ -22,6 +22,8 @@ whitelist_animations_path = None
 data_root_unreal = "/Engine/PS/Bedlam/SMPLX"
 
 def import_abc(data_root, data_root_unreal, current_batch, num_batches, whitelist_subjects=None, whitelist_animations=None):
+
+    print("Started import.")
 
     # Build import list
     import_abc_paths = sorted(Path(data_root).rglob("*.abc"))
@@ -34,6 +36,8 @@ def import_abc(data_root, data_root_unreal, current_batch, num_batches, whitelis
             end_index = len(import_abc_paths)
         print(f"Processing section: {current_batch}, total sections: {num_batches}, range: [{start_index}:{end_index}]")
         import_abc_paths = import_abc_paths[start_index : end_index]
+
+    print("Import abc paths:", import_abc_paths)
 
     import_tasks = []
     for import_abc_path in import_abc_paths:

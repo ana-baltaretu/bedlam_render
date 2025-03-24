@@ -14,6 +14,7 @@
 #   + Will generate 30fps MP4 movies in landscape mode (1280x720)
 # + `bash ./be_post_render_pipeline.sh /mnt/c/bedlam/images/myrenderjob 30 rotate`
 #   + Will generate 30fps MP4 movies in portrait mode (720x1280)
+# + `bash ./be_post_render_pipeline.sh /mnt/c/bedlam/images/test/png 30`
 #
 # Requirements: 
 # + ffmpeg (see `create_movies_from_images.py` for details`)

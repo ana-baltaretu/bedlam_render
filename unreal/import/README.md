@@ -5,6 +5,7 @@ The various scripts in this folder help with automating BEDLAM related data impo
 + Unreal Engine 5.0.3 with active [Python Editor Script Plugin](https://docs.unrealengine.com/5.0/en-US/scripting-the-unreal-editor-using-python/)
 
 # Scripts
+- [ ] TODO: Make config file with shared `UNREAL_APP_PATH`, `UNREAL_PROJECT_PATH`, `IMPORT_SCRIPT_FOLDER`
 
 ## Animated SMPL-X bodies
 + [import_abc_smplx_batch.py](import_abc_smplx_batch.py)
@@ -13,18 +14,20 @@ The various scripts in this folder help with automating BEDLAM related data impo
     + Python for Windows (3.10.2 or later)
     + Blank Unreal project with active Python Editor Script Plugin (Sandbox5)
 + Usage
-    + Adjust data paths at top of `import_abc_smplx_batch.py` and `import_abc_smplx.py` scripts
+    + Adjust data paths at top of [`import_abc_smplx_batch.py`](import_abc_smplx_batch.py) and [`import_abc_smplx.py`](import_abc_smplx.py) scripts
     + Run multiprocess batch import from Windows command prompt. The example below uses 10 simultaneous Unreal Engine instances for data import of 1000 data batches. Depending on your available CPU core count and available main memory (128GB+ recommended) you can increase or need to decrease the amount of processes. For fastest processing of BEDLAM release data make sure that you have a fast SSD with large enough space (700GB).
         + `py -3 import_abc_smplx_batch.py 1000 10`
 
 ## Simulated animated clothing
++ Download `.abc` files from BEDLAM download: `bash ./clothing_download.sh abc30fps` (in WSL) and move to correct data root `data_root = r"C:\bedlam\material_4rendering\batch_01\clothing_abc"`
++ Run in Windows Powershell
 + [import_abc_clothing_batch.py](import_abc_clothing_batch.py)
 + Use this script to batch import simulated 3D clothing files in Alembic ABC format as `Geometry Cache`
 + Requirements
     + Python for Windows (3.10.2 or later)
     + Blank Unreal project with active Python Editor Script Plugin (Sandbox5)
 + Usage
-    + Adjust data paths at top of `import_abc_clothing_batch.py` and `import_abc_clothing.py` scripts
+    + Adjust data paths at top of [`import_abc_clothing_batch.py`](import_abc_clothing_batch.py) and [`import_abc_clothing.py`](import_abc_clothing.py) scripts
     + Run multiprocess batch import from Windows command prompt. The example below uses 10 simultaneous Unreal Engine instances for data import of 1000 data batches. Depending on your available CPU core count and available main memory (128GB+ recommended) you can increase or need to decrease the amount of processes. For fastest processing of BEDLAM release data make sure that you have a fast SSD with large enough space (1.4TB).
         + `py -3 import_abc_clothing_batch.py 1000 10`
 

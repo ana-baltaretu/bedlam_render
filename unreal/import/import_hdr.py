@@ -9,7 +9,7 @@ import os
 import time
 import unreal
 
-data_root = r"C:\bedlam\render\hdr"
+data_root = r"C:\bedlam_render\tools\download_hdri\polyhaven_hdri_downloads"
 
 data_root_unreal = "/Engine/PS/Bedlam/HDRI/4k"
 
