@@ -30,7 +30,9 @@ If you want to use the BEDLAM animations:
 
 Example: 
 ```
+blender --background --python smplx_anim_to_alembic.py -- --input /path/to/npz --output /path/to/abc
 py -3 smplx_anim_to_alembic_batch.py C:\bedlam\animations\gendered_ground_truth C:\bedlam\abc 12
+
 ```
 
 # Notes

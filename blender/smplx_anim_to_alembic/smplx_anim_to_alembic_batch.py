@@ -17,7 +17,7 @@ import sys
 import time
 
 # Globals
-BLENDER_APP_PATH = r"C:\apps\blender-3.2.2-windows-x64\blender.exe"
+BLENDER_APP_PATH = r"C:\Program Files\Blender Foundation\Blender 3.2\blender.exe" # TODO: Change this to where Blender is installed for you and make sure you have the Blender SMPL-X add-on
 DEFAULT_PROCESSES = 6
 
 def worker(blender_app_path, input, output):
@@ -25,6 +25,7 @@ def worker(blender_app_path, input, output):
     subprocess_args = [blender_app_path, "--background", "--python", "smplx_anim_to_alembic.py", "--"]
     subprocess_args.extend(["--input", input])
     subprocess_args.extend(["--output", output])
+    print("Executing command:", subprocess_args)
     subprocess.run(subprocess_args)
     return True
 
