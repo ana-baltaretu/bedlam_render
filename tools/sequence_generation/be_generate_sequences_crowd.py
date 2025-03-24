@@ -5,6 +5,7 @@
 # Generate .csv file with desired body positions for multiple animated people per sequence
 #
 # Dependencies:
+# + Inside `venv` environment in WSL
 # + pip install opencv-python-headless
 #
 # Notes: Run in unbuffered mode (-u) to immediately see results when piping stdout to tee
@@ -23,6 +24,8 @@ import sys
 
 from be_generate_sequences_crowd_config import *
 
+# ./be_generate_sequences_crowd.py be_1_1 | tee /mnt/c/bedlam/images/test/be_seq.csv
+
 # Globals
 CV_IMAGESIZE = 101 # represents 10m distance with origin in center of image at (50,50)
 CV_M_TO_PIXELS = 10
@@ -30,14 +33,14 @@ CV_BODY_RADIUS = 5  # 50cm body radius
 
 SMPLX_NPZ_ANIMATION_FOLDER = Path("/mnt/c/bedlam/animations/gendered_ground_truth")
 
-SUBJECT_GENDER_PATH = Path("../../config/gender.csv")               # Gender information for each subject
-TEXTURES_BODY_PATH = Path("../../config/textures_body.txt")         # List of available body textures
-TEXTURES_CLOTHING_PATH = Path("../../config/textures_clothing.csv") # List of available clothing textures per subject
+SUBJECT_GENDER_PATH = Path("../../config/bend/bend_gender.csv")               # Gender information for each subject
+TEXTURES_BODY_PATH = Path("../../config/bend/textures_body.txt")         # List of available body textures
+TEXTURES_CLOTHING_PATH = Path("../../config/bend/textures_clothing.csv") # List of available clothing textures per subject
 
-WHITELIST_PATH = Path("../../config/whitelist_animations.json")     # Per-subject whitelisted animations
+WHITELIST_PATH = Path("../../config/bend/whitelist_bend_animations.json")     # Per-subject whitelisted animations
 #WHITELIST_PATH = Path("../../config/whitelist_animations_highbmihand_20221019.json")
 
-WHITELIST_HAIR_PATH = Path("../../config/whitelist_hair.json")
+WHITELIST_HAIR_PATH = Path("../../config/bend/whitelist_hair.json")
 
 OUTPUT_IMAGE_ROOT = Path("images")
 ################################################################################
@@ -448,7 +451,9 @@ if __name__ == "__main__":
         sequence_frames = subject_location_data[0].used_frames
         total_frames += sequence_frames
 
-        comment = f"sequence_name={sequence_name};frames={sequence_frames}"
+        # comment = f"sequence_name={sequence_name};frames={sequence_frames}"
+        correct_sequence_name=subject_location_data[0].subject_name + "_" + subject_location_data[0].animation_name
+        comment = f"sequence_name={correct_sequence_name};frames={sequence_frames}"
 
         if hdris is not None:
             # Add HDRI name to sequence information
@@ -469,6 +474,7 @@ if __name__ == "__main__":
         current_textures_body_male = []
 
         for data in subject_location_data:
+            # print(data)
             comment = f"start_frame={data.start_frame}"
 
             # Randomize body texture, use each texture only once per sequence
@@ -485,18 +491,18 @@ if __name__ == "__main__":
                 print(f"ERROR: no gender definition for subject: {data.subject_name}", file=sys.stderr)
                 sys.exit(1)
 
-            comment += f";texture_body={texture_body_name}"
+            # comment += f";texture_body={texture_body_name}"
 
             # Randomize clothing texture
-            if data.subject_name in textures_clothing:
-                textures = textures_clothing[data.subject_name]
-                texture_clothing_name = textures[random.randrange(len(textures))]
-                comment += f";texture_clothing={texture_clothing_name}"
+            # if data.subject_name in textures_clothing:
+            #     textures = textures_clothing[data.subject_name]
+            #     texture_clothing_name = textures[random.randrange(len(textures))]
+            #     comment += f";texture_clothing={texture_clothing_name}"
 
             if c.use_hair:
                 # Randomize hair
-                if len(current_hair[gender]) == 0:
-                    current_hair[gender] = list(whitelist_hair[gender])
+                # if len(current_hair[gender]) == 0:
+                #     current_hair[gender] = list(whitelist_hair[gender])
 
                 hair_name = current_hair[gender].pop(random.randrange(len(current_hair[gender])))
                 comment += f";hair={hair_name}"

@@ -31,6 +31,13 @@ configs = {}
 config_1_1 = Config(bodies_min=1, bodies_max=1, x_offset=1000, x_min=-400, x_max=400, y_min=-400, y_max=400, yaw_min=0, yaw_max=360, num_sequences=1, unique_subjects=False)
 configs["be_1_1"] = config_1_1
 
+my_config_1_1 = Config(bodies_min=1, bodies_max=1,
+                       x_offset=-300, x_min=-200, x_max=200,
+                       y_min=-400, y_max=400,
+                       yaw_min=0, yaw_max=360,
+                       num_sequences=1, unique_subjects=False)
+configs["my_1_1"] = my_config_1_1
+
 # be_2: 2 people in 8m x 8m area with center at camera distance 10m
 config_2_1 = Config(bodies_min=2, bodies_max=2, x_offset=1000, x_min=-400, x_max=400, y_min=-400, y_max=400, yaw_min=0, yaw_max=360, num_sequences=1, unique_subjects=False)
 configs["be_2_1"] = config_2_1
@@ -122,8 +129,21 @@ configs["be_suburb_c_closeup_1_250"] = Config(bodies_min=1, bodies_max=1, x_offs
 configs["be_suburb_c_closeup_1_250_hair"] = Config(use_hair=True, bodies_min=1, bodies_max=1, x_offset=3300.0, y_offset=1200.0, z_offset=370.0, x_min=-10, x_max=10, y_min=-10, y_max=10, yaw_min=0, yaw_max=360, num_sequences=250, unique_subjects=True, unique_sequences=True, camera_hfov_deg=65.470451, override_cameraroot_location=True)
 # Outdoors, closeup
 configs["be_suburb_d_closeup_1_250"] = Config(bodies_min=1, bodies_max=1, x_offset=-1200.0, y_offset=-250.0, z_offset=0.0, x_min=-10, x_max=10, y_min=-10, y_max=10, yaw_min=0, yaw_max=360, num_sequences=250, unique_subjects=True, unique_sequences=True, camera_hfov_deg=65.470451, override_cameraroot_location=True)
+
+
 # Outdoors
 configs["be_suburb_d_3-10_500"] = Config(bodies_min=3, bodies_max=10, x_offset=-1200.0, y_offset=-250.0, z_offset=0.0, x_min=-300, x_max=300, y_min=-300, y_max=300, yaw_min=0, yaw_max=360, num_sequences=500, unique_subjects=True, unique_sequences=True, camera_hfov_deg=65.470451, override_cameraroot_location=True)
 configs["be_suburb_d_3-8_1000"] = Config(bodies_min=3, bodies_max=8, x_offset=-1200.0, y_offset=-250.0, z_offset=0.0, x_min=-300, x_max=300, y_min=-300, y_max=300, yaw_min=0, yaw_max=360, num_sequences=1000, unique_subjects=True, unique_sequences=True, camera_hfov_deg=52.0, override_cameraroot_location=True)
 configs["be_suburb_d_3-8_50_hair"] = Config(use_hair=True, bodies_min=3, bodies_max=8, x_offset=-1200.0, y_offset=-250.0, z_offset=0.0, x_min=-300, x_max=300, y_min=-300, y_max=300, yaw_min=0, yaw_max=360, num_sequences=50, unique_subjects=True, unique_sequences=True, camera_hfov_deg=65.470451, override_cameraroot_location=True)
 configs["be_suburb_d_10_100_hair"] = Config(use_hair=True, bodies_min=10, bodies_max=10, x_offset=-1200.0, y_offset=-250.0, z_offset=0.0, x_min=-300, x_max=300, y_min=-300, y_max=300, yaw_min=0, yaw_max=360, num_sequences=100, unique_subjects=True, unique_sequences=True, camera_hfov_deg=65.470451, override_cameraroot_location=True)
+
+
+
+### MY THINGGG
+configs["be_suburb_d_3-10_2"] = Config(bodies_min=1, bodies_max=1,
+                                       x_offset=-100.0, y_offset=0.0, z_offset=0.0,
+                                       x_min=400, x_max=400, ### TODO: CHANGE THESE
+                                       y_min=0, y_max=0, ### TODO: CHANGE THESE
+                                       yaw_min=0, yaw_max=0, camera_height=130,
+                                       num_sequences=135, unique_subjects=True, unique_sequences=True,
+                                       camera_hfov_deg=65.470451, override_cameraroot_location=True)
