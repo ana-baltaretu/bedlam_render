@@ -1,6 +1,5 @@
 bend = [
     "pick",
-    "situp"
 ]
 
 dance = [

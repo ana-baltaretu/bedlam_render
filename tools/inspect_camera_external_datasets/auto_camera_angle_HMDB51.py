@@ -9,11 +9,12 @@ from collections import Counter
 
 # Configuration
 DATASET_PATH = "D:/HMDB51-frames"  # Change to your dataset path
-SAMPLES_PER_ACTION = 20  # Adjust as needed
-FRAMES_PER_VIDEO = 1  # Adjust as needed
+SAMPLES_PER_ACTION = 40  # Adjust as needed
+FRAMES_PER_VIDEO = 5  # Adjust as needed
 MIN_VOTES_THRESHOLD = 5  # Minimum votes for an angle to be considered relevant
 OUTPUT_EXCEL = "camera_angle_results.xlsx"
 SUMMARY_EXCEL = "camera_angle_summary.xlsx"
+LOOK_FOR_ACTION = "cartwheel"
 
 # Initialize MediaPipe Pose detector
 mp_pose = mp.solutions.pose
@@ -82,13 +83,18 @@ def process_frames(dataset_path, samples_per_action=2, frames_per_video=3):
     results = []
 
     for action in sorted(os.listdir(dataset_path)):
+
+        if action not in [LOOK_FOR_ACTION]:
+            continue
+
         action_path = os.path.join(dataset_path, action)
         if not os.path.isdir(action_path):
             continue
 
-        # Each folder inside `action_path` is treated as one "video"
         video_folders = [f for f in os.listdir(action_path) if os.path.isdir(os.path.join(action_path, f))]
         sampled_folders = random.sample(video_folders, min(samples_per_action, len(video_folders)))
+
+        all_rows = []
 
         for video_folder in sampled_folders:
             video_path = os.path.join(action_path, video_folder)
@@ -97,8 +103,8 @@ def process_frames(dataset_path, samples_per_action=2, frames_per_video=3):
             if len(image_files) == 0:
                 continue
 
-            # Sample frames randomly
             sampled_images = random.sample(image_files, min(frames_per_video, len(image_files)))
+            row_images = []
 
             for image_name in sampled_images:
                 image_path = os.path.join(video_path, image_name)
@@ -107,17 +113,9 @@ def process_frames(dataset_path, samples_per_action=2, frames_per_video=3):
                 if frame is None:
                     continue
 
-                # Detect camera angle and pose
                 angle, pose_results = detect_camera_angle(frame)
-
-                # Ignore frames where pose is not detected or is uncertain
-                if angle in ["Mixed/Unknown", "No person detected"]:
-                    continue
-
-                # Draw pose on frame
                 frame_with_pose = draw_pose_on_frame(frame, pose_results)
 
-                # Save only valid frames
                 results.append({
                     "Action": action,
                     "Video": video_folder,
@@ -125,21 +123,39 @@ def process_frames(dataset_path, samples_per_action=2, frames_per_video=3):
                     "Detected Camera Angle": angle
                 })
 
-                # Show frame with pose overlay
-                plt.figure(figsize=(6, 4))
-                plt.imshow(frame_with_pose)
-                plt.title(f"Action: {action} | Angle: {angle}")
-                plt.axis('off')
-                plt.show(block=False)
-                plt.close()
+                row_images.append((frame_with_pose, image_name))
 
-    # Save only valid detections to Excel
-    df = pd.DataFrame(results)
-    df.to_excel(OUTPUT_EXCEL, index=False)
-    print(f"Results saved to {OUTPUT_EXCEL}.")
+            all_rows.append((video_folder, row_images))
 
-    # Create clustered summary
-    create_summary_excel(df)
+        # Display and save plots in a matrix
+        fig, axes = plt.subplots(nrows=len(all_rows), ncols=frames_per_video, figsize=(frames_per_video * 4, len(all_rows) * 4))
+
+        # Handle single row/column edge cases
+        if len(all_rows) == 1:
+            axes = [axes]
+        if frames_per_video == 1:
+            axes = [[ax] for ax in axes]
+
+        for row_idx, (video_folder, row_images) in enumerate(all_rows):
+            for col_idx in range(frames_per_video):
+                ax = axes[row_idx][col_idx]
+                if col_idx < len(row_images):
+                    img, img_name = row_images[col_idx]
+                    ax.imshow(img)
+                    ax.set_title(f"{video_folder} - {img_name}")
+                ax.axis('off')
+
+        fig.suptitle(f"Action: {action}", fontsize=16)
+        plt.tight_layout()
+
+        # Save to PDF
+        output_dir = os.path.join("output_plots", action)
+        os.makedirs(output_dir, exist_ok=True)
+        pdf_path = os.path.join(output_dir, f"{action}_matrix.pdf")
+        plt.savefig(pdf_path, format='pdf', bbox_inches='tight')
+
+        # Show for interactive viewing
+        plt.show()
 
 
 def create_summary_excel(df):
@@ -169,12 +185,12 @@ def create_summary_excel(df):
         else:
             angle_summary = "Unknown"
 
-        summary_results.append({"Action": action, "Most Frequent Camera Angles": angle_summary})
-
-    # Save summary to Excel
-    summary_df = pd.DataFrame(summary_results)
-    summary_df.to_excel(SUMMARY_EXCEL, index=False)
-    print(f"Summary saved to {SUMMARY_EXCEL}.")
+    #     summary_results.append({"Action": action, "Most Frequent Camera Angles": angle_summary})
+    #
+    # # Save summary to Excel
+    # summary_df = pd.DataFrame(summary_results)
+    # summary_df.to_excel(SUMMARY_EXCEL, index=False)
+    # print(f"Summary saved to {SUMMARY_EXCEL}.")
 
 
 if __name__ == '__main__':
